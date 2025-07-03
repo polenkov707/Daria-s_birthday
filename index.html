@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на день рождения</title>
+     <link rel="icon" type="image/png" href="/img/favicon.png.png">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff5f7;
+            color: #6d6875;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #ff758f;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background-color: #ffb7c5;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            min-width: 70px;
+            font-size: 1.2em;
+            box-shadow: 0 3px 10px rgba(255, 183, 197, 0.5);
+        }
+
+        .countdown-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .invitation {
+            background-color: #f8edeb;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ff758f;
+        }
+
+        .restaurant-info {
+            background-color: #e2f3f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .flowers {
+            font-size: 2em;
+            margin: 10px 0;
+            color: #ff758f;
+        }
+
+        button {
+            background-color: #ff758f;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(255, 117, 143, 0.5);
+        }
+
+        button:hover {
+            background-color: #ff8fa3;
+            transform: translateY(-3px);
+        }
+
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid #ffb7c5;
+            margin: 20px auto;
+            overflow: hidden;
+            background-color: #f8edeb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .photo-placeholder {
+            font-size: 3em;
+            color: #ffb7c5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flowers">🌸🎀🌸</div>
+        <h1>День рождения симпатульки!</h1>
+        <p>До твоего праздника осталось:</p>
+        
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                дней
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                часов
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                минут
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                секунд
+            </div>
+        </div>
+        
+        <div class="photo-frame">
+            <div class="photo-placeholder">🎂</div>
+        </div>
+        
+        <div class="invitation">
+            <h2>Любимая Даша,</h2>
+            <p>Я хочу сделать этот день (и не только 😽) особенным для тебя! Приглашаю тебя отметить твой день рождения в прекрасном ресторане <b>Shamparen</b>>.</p>
+            <p>Это будет день, полный сюрпризов, вкусной еды и приятных моментов.</p>
+        </div>
+        
+        <div class="restaurant-info">
+            <h2>Ресторан "Shamparen"</h2>
+            <p>🗓️ Дата: 26.07.2025</p>
+            <p>⏰ Время: 15:00</p>
+            <p>📍 Адрес: г. Мичуринск, ул. Герасимова, 86</p>
+            <p>💐 Дресс-код: вечерний наряд</p>
+            <a href="https://gerasimovhotel.com/restaurant" target="_blank">Познакомиться с меню</a>
+        </div>
+        
+        <button id="confirmBtn">Я с радостью приду!</button>
+        
+        <div class="flowers">🌸🎀🌸</div>
+    </div>
+
+    <script>
+        // Установите дату дня рождения здесь (год, месяц-1, день)
+        const birthday = new Date(2025, 6, 26); // Например, 15 декабря 2024 года
+        
+        function updateCountdown() {
+            const now = new Date();
+            const diff = birthday - now;
+            
+            if (diff <= 0) {
+                document.getElementById('countdown').innerHTML = '<h2>🎉 С Днем Рождения! 🎉</h2>';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Обновляем счетчик каждую секунду
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Первоначальный вызов
+        
+        // Обработчик кнопки подтверждения
+        document.getElementById('confirmBtn').addEventListener('click', function() {
+            alert('Спасибо за согласие! Жду этот день с нетерпением! 💖');
+        });
+    </script>
+</body>
+</html>
